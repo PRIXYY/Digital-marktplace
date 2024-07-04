@@ -9,3 +9,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+class OrderDetail(models.Model):
+    customer_name = models.CharField(max_length=100)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    created_on = models.DateTimeField(auto_now_add=True)
