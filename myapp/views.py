@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Product,OrderDetail
+from .forms import ProductForm
 # Create your views here.
 def index(request):
     products = Product.objects.all()
@@ -16,3 +17,13 @@ def payment_gateway(request):
 
 def success(request):
     return render(request,'myapp/success_pay.html')
+
+def create_product(request):
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST,request.FILES)
+        if product_form.is_valid():
+            new_product = product_form.save()
+            return redirect('index')
+
+    product_form = ProductForm()
+    return render(request,'myapp/create_product.html',{'product_form':product_form})
