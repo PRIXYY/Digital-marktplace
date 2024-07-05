@@ -7,5 +7,7 @@ urlpatterns = [
     path('payement',views.payment_gateway,name='payment'),
     path('successpay',views.success,name='success'),
     path('createproduct',views.create_product,name='createproduct'),
+    path('editproduct/<int:id>',views.product_edit,name='editproduct'),
+
 
 ]
