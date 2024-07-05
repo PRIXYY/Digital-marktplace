@@ -77,3 +77,7 @@ def register(request):
 
 def invalid(request):
     return render(request,'myapp/invalid.html')
+
+def my_purchases(request):
+    orders = OrderDetail.objects.filter(customer_name=request.user)
+    return render(request,'myapp/purchases.html',{'orders':orders})
