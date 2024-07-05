@@ -13,6 +13,6 @@ class Product(models.Model):
     
 class OrderDetail(models.Model):
     customer_name = models.CharField(max_length=100)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.CharField(max_length=100)
     amount = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)

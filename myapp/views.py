@@ -10,13 +10,22 @@ def detail(request,id):
     product = Product.objects.get(id=id)
     return render(request,'myapp/detail.html',{'product':product})
 
-def payment_gateway(request):
+def payment_gateway(request,id):
+    product = Product.objects.get(id=id)
+    order = OrderDetail()
+    order.customer_name= request.user
+    order.product = product.name
+    order.amount = product.price
+    order.save()
     return render(request,'myapp/payement.html')
-
-
+    
 
 def success(request):
     return render(request,'myapp/success_pay.html')
+
+    
+
+
 
 def create_product(request):
     if request.method == 'POST':
