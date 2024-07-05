@@ -16,6 +16,9 @@ def payment_gateway(request,id):
     order.customer_name= request.user
     order.product = product.name
     order.amount = product.price
+    product.total_sales_amount = product.total_sales_amount + int(product.price)
+    product.total_sales = product.total_sales + 1
+    product.save()
     order.save()
     return render(request,'myapp/payement.html')
     
