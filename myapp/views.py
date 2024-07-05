@@ -53,7 +53,7 @@ def product_delete(request,id):
     return render(request,'myapp/delete.html',{'product':product})
 
 def dashboard(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(seller=request.user )
     return render(request,'myapp/dashboard.html',{'products':products})
 
 def register(request):
