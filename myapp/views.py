@@ -1,6 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Product,OrderDetail
 from .forms import ProductForm,UserRegisterationForm
+from django.db.models import Sum
+import datetime
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 # Create your views here.
 def index(request):
     products = Product.objects.all()
@@ -84,3 +92,30 @@ def invalid(request):
 def my_purchases(request):
     orders = OrderDetail.objects.filter(customer_name=request.user)
     return render(request,'myapp/purchases.html',{'orders':orders})
+
+def sales(request):
+    orders = OrderDetail.objects.filter(customer_name=request.user)
+    total_sales = orders.aggregate(Sum('amount'))
+    last_year = datetime.date.today() - datetime.timedelta(days=365)
+    data = OrderDetail.objects.filter(customer_name=request.user,created_on__gt=last_year)
+    yearly_sales = data.aggregate(Sum('amount'))
+    
+    #30 day sales sum
+    last_month = datetime.date.today() - datetime.timedelta(days=30)
+    data = OrderDetail.objects.filter(customer_name=request.user,created_on__gt=last_month)
+    monthly_sales = data.aggregate(Sum('amount'))
+    
+    #7 day sales sum
+    last_week = datetime.date.today() - datetime.timedelta(days=7)
+    data = OrderDetail.objects.filter(customer_name=request.user,created_on__gt=last_week)
+    weekly_sales = data.aggregate(Sum('amount'))
+    
+    #Everday sum for the past 30 days
+    daily_sales_sums = OrderDetail.objects.filter(customer_name=request.user).values('created_on__date').order_by('created_on__date').annotate(sum=Sum('amount'))
+    
+    
+    
+    product_sales_sums = OrderDetail.objects.filter(customer_name=request.user).values('product').order_by('product').annotate(sum=Sum('amount'))
+    print(product_sales_sums)
+
+    return render(request, 'myapp/sales.html',{'total_sales':total_sales,'yearly_sales':yearly_sales,'monthly_sales':monthly_sales,'weekly_sales':weekly_sales,'daily_sales_sums':daily_sales_sums,'product_sales_sums':product_sales_sums})
