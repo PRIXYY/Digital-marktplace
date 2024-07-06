@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return render(request, 'myapp/logout.html')
 # Create your views here.
 def index(request):
     products = Product.objects.all()

@@ -7,6 +7,7 @@ class Product(models.Model):
     description = models.CharField(max_length=100)
     price = models.FloatField()
     file = models.FileField(upload_to='uploads') 
+    item_image=models.CharField(max_length=500,default="https://cdn4.iconfinder.com/data/icons/basic-ui-set-2-1/64/Basic_ui_2-16-1024.png")
     total_sales_amount = models.IntegerField(default=0)
     total_sales = models.IntegerField(default=0)
 
