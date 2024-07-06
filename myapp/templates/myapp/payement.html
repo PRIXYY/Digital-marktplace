@@ -109,7 +109,7 @@ p {
                 <div class="col-12">
                     <div class="d-flex flex-column">
                         <p class="text mb-1">Person Name</p>
-                        <input class="form-control mb-3" type="text" placeholder="Name" value="Barry Allen">
+                        <input class="form-control mb-3" type="text" placeholder="Name" value="{{ request.user }}">
                     </div>
                 </div>
                 <div class="col-12">
@@ -132,7 +132,7 @@ p {
                 </div>
                 <div class="col-12">
                     <div class="btn btn-primary mb-3" onclick="window.location.href='{% url 'success' %}'">
-                        <span class="ps-3" type="submit">Pay $243</span>
+                        <span class="ps-3" type="submit">Pay {{product.price}}</span>
                         <span class="fas fa-arrow-right"></span>
                     </div>
                 </div>

@@ -1,1 +1,11 @@
-<h1>Payement Suucessful</h1>
+{% extends 'myapp/base.html' %} 
+{% block body %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; text-align: center;">
+
+<h1>Payement Sucessful</h1>
+<div class="btn btn-success mb-3" onclick="window.location.href='{% url 'index' %}'" style="padding: 10px 20px; margin-top: 20px; background-color: #47995a; font-size: 1.2em; cursor: pointer;">
+    Home
+    
+</div>
+</div>
+{% endblock %}
